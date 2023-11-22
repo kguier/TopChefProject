@@ -173,7 +173,16 @@ function searchCuisines(allDishes) {
 function searchIngredients(allDishes) {
     alert("Searching for dishes by ingredient...")
     // TODO #4: Gather user input for an ingredient to search for, then filter for all dishes that INCLUDE this ingredient in their ingredients array property
+    let userInput = prompt("Please enter the ingredient you would to search the cuisines for: tomato, cheese, corn, flour, sugar, beef, cabbage, chickpea, or parsley");
+    let results = allDishes.filter(function (el) {
+        if (el.ingredients.includes(userInput)) {
+            return true;
+        } else {
+            return false;
+        }
+    });
     alert("Found all dishes that contain the ingredient search term!  Check the console for full output")
+    return results
 }
 
 function generateCuisineDishName(allDishes) {
