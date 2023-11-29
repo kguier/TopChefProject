@@ -158,7 +158,7 @@ function findItalianFood(allDishes) {
 function searchCuisines(allDishes) {
     alert("Searching for dishes by cuisine...")
     // TODO #3: Gather user input for a cuisine to search for, then filter for all dishes matching this cuisine type
-    let userInput = prompt("Please enter the type of cuisine you would like to see: Italian, Mexican, French, Irish, Vegetarian, or Hungarian");
+    let userInput = customPrompt("Please enter the type of cuisine you would like to see: Italian, Mexican, French, Irish, Vegetarian, or Hungarian");
     let results = allDishes.filter(function (el) {
         if (el.cuisine === userInput) {
             return true;
@@ -173,7 +173,7 @@ function searchCuisines(allDishes) {
 function searchIngredients(allDishes) {
     alert("Searching for dishes by ingredient...")
     // TODO #4: Gather user input for an ingredient to search for, then filter for all dishes that INCLUDE this ingredient in their ingredients array property
-    let userInput = prompt("Please enter the ingredient you would to search the cuisines for: tomato, cheese, corn, flour, sugar, beef, cabbage, chickpea, or parsley");
+    let userInput = customPrompt("Please enter the ingredient you would to search the cuisines for: tomato, cheese, corn, flour, sugar, beef, cabbage, chickpea, or parsley");
     let results = allDishes.filter(function (el) {
         if (el.ingredients.includes(userInput)) {
             return true;
@@ -189,8 +189,8 @@ function generateCuisineDishName(allDishes) {
     alert("Combining cuisine and dish names...")
     // TODO #5: Apply the concatenatorFunction to each dish in allDishes, then log to the console the modified result
     let cuisineDishName = allDishes.map(function (el) {
-        return el.cuisine + " " + el.name
-    })
+        return el.cuisine + " " + el.name;
+    });
     alert("Successfully combined cuisine and dish names!  Check the console for full output.")
     console.log(cuisineDishName)
 }
@@ -199,6 +199,7 @@ function generateCuisineDishName(allDishes) {
 
 function emailMessage(dishOfTheDay) {
     // TODO #6: Adjust the message below so the cuisine and name of the dish are displayed
+    let todaysSpecialDish = dishOfTheDay.cuisine + " " + dishOfTheDay.name;
     let message = `
     Hello valued customer!
 
@@ -215,18 +216,19 @@ function emailMessage(dishOfTheDay) {
     (To unsubscribe hit the 'unsubscribe' button below)
     `;
 
-    return message;
+    return message
 }
 
 function textMessage(dishOfTheDay) {
     // TODO #6: Adjust the message below so the cuisine and name of the dish are displayed
+    let todaysSpecialDish = dishOfTheDay.cuisine + " " + dishOfTheDay.name;
     let message = `
     Master Chef -
 
     This is an automated text message alert.
     Today's Dish of the day is:
 
-    <DISH OF THE DAY HERE>
+    ${todaysSpecialDish}
 
     We hope to see you in soon!
 
@@ -243,6 +245,8 @@ function generateMarketingMessage(dishOfTheDay, messageTypeCallback) {
     alert('Sending final message to all 389 customers...')
     // TODO #7: Call the passed-in callback function on the dishOfTheDay.  Save the result as a variable
     // Then, log that result to the console
+    let result = messageTypeCallback(dishOfTheDay);
+    console.log(result);
     alert('Success!  Check the console for a copy of the final marketing message!')
 }
 
@@ -293,10 +297,13 @@ function runApp(allDishes, specialDish) {
         case "6":
             // TODO #8: Call the appropriate function to generate the marketing text message.  
             // You will need to provide today's dish and the appropriate callback function as arguments!
+            textMessage(specialDish)
+            generateMarketingMessage(specialDish)
             break
         case "7":
             // TODO #9: Call the appropriate function to generate the marketing email message.  
             // You will need to provide today's dish and the appropriate callback function as arguments!
+            emailMessage(specialDish)
             break
         case "Exit":
             alert("Thank you for using the Recipe Searching Application!  Goodbye!")
